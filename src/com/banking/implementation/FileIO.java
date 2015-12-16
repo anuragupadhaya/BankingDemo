@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+import com.banking.businessobject.Account;
 import com.banking.businessobject.User;
 
 public class FileIO {
@@ -31,22 +32,24 @@ public class FileIO {
 	public static User readTransactionFile(User user) {
 
 		BufferedReader br = null;
-		User newUser = new User();
+		String currentLine = "";
 
 		try {
-			String currentLine;
 			br = new BufferedReader(new FileReader(TRANSACTION_FILE));
-			String email = user.getEmail().toLowerCase();
 			while ((currentLine = br.readLine()) != null) {
-				if (currentLine.contains(email)) {
+				if (currentLine.contains(user.getEmail().toLowerCase())) {
 					break;
 				}
 			}
+			br.close();
 
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 
+		String[] objectValue = currentLine.split(",");
+		Account account = new Account(Integer.valueOf(objectValue[3]),Integer.valueOf(objectValue[4]),Integer.valueOf(objectValue[5]));
+		User newUser = new User(objectValue[0], objectValue[1], Integer.valueOf(objectValue[2]), account);
 		return newUser;
 	}
 }

@@ -5,6 +5,13 @@ public class Account {
 	private Integer authPin;
 	private Integer transactionPin;
 
+	public Account(Integer accountNumber, Integer authPin,
+			Integer transactionPin) {
+		this.accountNumber = accountNumber;
+		this.authPin = authPin;
+		this.transactionPin = transactionPin;
+	}
+
 	public Integer getAccountNumber() {
 		return accountNumber;
 	}
@@ -27,5 +34,10 @@ public class Account {
 
 	public void setTransactionPin(Integer transactionPin) {
 		this.transactionPin = transactionPin;
+	}
+
+	@Override
+	public String toString() {
+		return accountNumber + "," + authPin + "," + transactionPin;
 	}
 }
