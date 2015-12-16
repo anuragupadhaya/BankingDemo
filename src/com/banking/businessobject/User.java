@@ -11,7 +11,7 @@ public class User {
 	}
 
 	public void setUserName(String userName) {
-		this.userName = userName.toLowerCase();
+		this.userName = userName;
 	}
 
 	public String getEmail() {
@@ -19,7 +19,7 @@ public class User {
 	}
 
 	public void setEmail(String email) {
-		this.email = email.toLowerCase();
+		this.email = email;
 	}
 
 	public Integer getMobileNumber() {
