@@ -1,12 +1,13 @@
 package com.banking.businessobject;
 
+import java.util.Objects;
+
 public class Account {
 	private Integer accountNumber;
 	private Integer authPin;
 	private Integer transactionPin;
 
-	public Account(Integer accountNumber, Integer authPin,
-			Integer transactionPin) {
+	public Account(Integer accountNumber, Integer authPin, Integer transactionPin) {
 		this.accountNumber = accountNumber;
 		this.authPin = authPin;
 		this.transactionPin = transactionPin;
@@ -39,5 +40,19 @@ public class Account {
 	@Override
 	public String toString() {
 		return accountNumber + "," + authPin + "," + transactionPin;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		Account account = (Account) obj;
+		return (this.accountNumber.intValue() == account.getAccountNumber().intValue()
+				&& this.authPin.intValue() == account.getAuthPin().intValue()
+				&& this.transactionPin.intValue() == account.getTransactionPin().intValue());
+	}
+
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return Objects.hashCode(this.getAccountNumber());
 	}
 }

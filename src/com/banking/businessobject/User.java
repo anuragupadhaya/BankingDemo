@@ -1,13 +1,15 @@
 package com.banking.businessobject;
 
+import java.math.BigInteger;
+import java.util.Objects;
+
 public class User {
 	private String userName;
 	private String email;
-	private Integer mobileNumber;
+	private BigInteger mobileNumber;
 	private Account account;
 
-	public User(String userName, String email, Integer mobileNumber,
-			Account account) {
+	public User(String userName, String email, BigInteger mobileNumber, Account account) {
 		this.userName = userName;
 		this.email = email;
 		this.mobileNumber = mobileNumber;
@@ -30,11 +32,11 @@ public class User {
 		this.email = email.toLowerCase();
 	}
 
-	public Integer getMobileNumber() {
+	public BigInteger getMobileNumber() {
 		return mobileNumber;
 	}
 
-	public void setMobileNumber(Integer mobileNumber) {
+	public void setMobileNumber(BigInteger mobileNumber) {
 		this.mobileNumber = mobileNumber;
 	}
 
@@ -49,5 +51,19 @@ public class User {
 	@Override
 	public String toString() {
 		return userName + "," + email + "," + mobileNumber + "," + account;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		User user = (User) obj;
+		return (this.userName.equals(user.getUserName()) && this.email.equals(user.getEmail())
+				&& this.mobileNumber == user.getMobileNumber() && this.account.equals(user.getAccount()));
+
+	}
+
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return Objects.hashCode(this.getMobileNumber());
 	}
 }
