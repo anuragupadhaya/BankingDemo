@@ -10,8 +10,9 @@ import java.math.BigInteger;
 
 import com.banking.businessobject.Account;
 import com.banking.businessobject.User;
+import com.banking.interfaces.IFileIO;
 
-public class FileIO {
+public class FileIO implements IFileIO{
 	// Test path for Windows machine
 	private final static String TRANSACTION_FILE = "c:\\bank_transaction.txt";
 
@@ -19,7 +20,11 @@ public class FileIO {
 	// private final static String TRANSACTION_FILE =
 	// "/Users/anurag/bank_transaction.txt";
 
-	public static boolean intitalizeTransactionFile() {
+	/* (non-Javadoc)
+	 * @see com.banking.implementation.IFileIO#intitalizeTransactionFile()
+	 */
+	@Override
+	public boolean intitalizeTransactionFile() {
 		// Initialize the file
 		try {
 			File file = new File(TRANSACTION_FILE);
@@ -37,7 +42,11 @@ public class FileIO {
 		return true;
 	}
 
-	public static User readTransactionFile(User user) {
+	/* (non-Javadoc)
+	 * @see com.banking.implementation.IFileIO#readTransactionFile(com.banking.businessobject.User)
+	 */
+	@Override
+	public User readTransactionFile(User user) {
 
 		BufferedReader br = null;
 		String currentLine = "";
@@ -66,12 +75,18 @@ public class FileIO {
 				Integer.valueOf(objectValue[5]));
 		User newUser = new User(objectValue[0], objectValue[1], new BigInteger(
 				objectValue[2]), account);
+		System.out.println("User found in the transaction file: "
+				+ newUser.toString());
 		return newUser;
 
 		// to add exception code here if the record is not found
 	}
 
-	public static boolean writeTransactionFile(User user) {
+	/* (non-Javadoc)
+	 * @see com.banking.implementation.IFileIO#writeTransactionFile(com.banking.businessobject.User)
+	 */
+	@Override
+	public boolean writeTransactionFile(User user) {
 		// **important**
 		// Eclipse needs to be *Run as Admin* to have the write access to write
 		// to the file
@@ -93,6 +108,8 @@ public class FileIO {
 			e.printStackTrace();
 		}
 		// again check for error handling here
+		System.out.println("Record written to the transaction file: "
+				+ user.toString());
 		return true;
 	}
 }

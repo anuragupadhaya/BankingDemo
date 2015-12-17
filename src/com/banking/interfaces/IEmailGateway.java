@@ -1,5 +1,5 @@
 package com.banking.interfaces;
 
-public interface InterfaceEmailGateway {
+public interface IEmailGateway {
 	public void sendMessage(String email, String message);
 }
