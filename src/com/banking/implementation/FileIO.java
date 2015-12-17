@@ -12,7 +12,7 @@ import com.banking.businessobject.Account;
 import com.banking.businessobject.User;
 import com.banking.interfaces.IFileIO;
 
-public class FileIO implements IFileIO{
+public class FileIO implements IFileIO {
 	// Test path for Windows machine
 	private final static String TRANSACTION_FILE = "c:\\bank_transaction.txt";
 
@@ -20,7 +20,9 @@ public class FileIO implements IFileIO{
 	// private final static String TRANSACTION_FILE =
 	// "/Users/anurag/bank_transaction.txt";
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.banking.implementation.IFileIO#intitalizeTransactionFile()
 	 */
 	@Override
@@ -42,8 +44,11 @@ public class FileIO implements IFileIO{
 		return true;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.banking.implementation.IFileIO#readTransactionFile(com.banking.businessobject.User)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.banking.implementation.IFileIO#readTransactionFile(com.banking.
+	 * businessobject.User)
 	 */
 	@Override
 	public User readTransactionFile(User user) {
@@ -69,21 +74,21 @@ public class FileIO implements IFileIO{
 			e.printStackTrace();
 		}
 
-		String[] objectValue = currentLine.trim().split(",");
-		Account account = new Account(Integer.valueOf(objectValue[3]),
-				Integer.valueOf(objectValue[4]),
+		String[] objectValue = currentLine.trim().split("|");
+		Account account = new Account(Integer.valueOf(objectValue[3]), Integer.valueOf(objectValue[4]),
 				Integer.valueOf(objectValue[5]));
-		User newUser = new User(objectValue[0], objectValue[1], new BigInteger(
-				objectValue[2]), account);
-		System.out.println("User found in the transaction file: "
-				+ newUser.toString());
+		User newUser = new User(objectValue[0], objectValue[1], new BigInteger(objectValue[2]), account);
+		System.out.println("User found in the transaction file: " + newUser.toString());
 		return newUser;
 
 		// to add exception code here if the record is not found
 	}
 
-	/* (non-Javadoc)
-	 * @see com.banking.implementation.IFileIO#writeTransactionFile(com.banking.businessobject.User)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.banking.implementation.IFileIO#writeTransactionFile(com.banking.
+	 * businessobject.User)
 	 */
 	@Override
 	public boolean writeTransactionFile(User user) {
@@ -108,8 +113,7 @@ public class FileIO implements IFileIO{
 			e.printStackTrace();
 		}
 		// again check for error handling here
-		System.out.println("Record written to the transaction file: "
-				+ user.toString());
+		System.out.println("Record written to the transaction file: " + user.toString());
 		return true;
 	}
 }

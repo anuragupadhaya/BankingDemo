@@ -1,5 +1,8 @@
 package com.banking.interfaces;
 
-public interface ITransaction {
+import com.banking.businessobject.Transaction;
+import com.banking.businessobject.User;
 
+public interface ITransaction {
+	public abstract boolean accountAuthentication(User user, Transaction trnObj);
 }
