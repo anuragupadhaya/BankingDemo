@@ -12,9 +12,12 @@ import com.banking.businessobject.Account;
 import com.banking.businessobject.User;
 
 public class FileIO {
+	// Test path for Windows machine
+	private final static String TRANSACTION_FILE = "c:\\bank_transaction.txt";
+
+	// Test path for MacBook
 	// private final static String TRANSACTION_FILE =
-	// "c:\\bank_transaction.txt";
-	private final static String TRANSACTION_FILE = "/Users/anurag/bank_transaction.txt";
+	// "/Users/anurag/bank_transaction.txt";
 
 	public static boolean intitalizeTransactionFile() {
 		// Initialize the file
@@ -58,16 +61,21 @@ public class FileIO {
 		}
 
 		String[] objectValue = currentLine.trim().split(",");
-		Account account = new Account(Integer.valueOf(objectValue[3]), Integer.valueOf(objectValue[4]),
+		Account account = new Account(Integer.valueOf(objectValue[3]),
+				Integer.valueOf(objectValue[4]),
 				Integer.valueOf(objectValue[5]));
-		User newUser = new User(objectValue[0], objectValue[1], new BigInteger(objectValue[2]), account);
+		User newUser = new User(objectValue[0], objectValue[1], new BigInteger(
+				objectValue[2]), account);
 		return newUser;
 
 		// to add exception code here if the record is not found
 	}
 
 	public static boolean writeTransactionFile(User user) {
-
+		// **important**
+		// Eclipse needs to be *Run as Admin* to have the write access to write
+		// to the file
+		// Problem with Windows 7+ as of now. Still need to check on Mac.
 		BufferedWriter bw = null;
 
 		try {

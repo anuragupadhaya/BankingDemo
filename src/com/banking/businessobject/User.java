@@ -9,7 +9,8 @@ public class User {
 	private BigInteger mobileNumber;
 	private Account account;
 
-	public User(String userName, String email, BigInteger mobileNumber, Account account) {
+	public User(String userName, String email, BigInteger mobileNumber,
+			Account account) {
 		this.userName = userName;
 		this.email = email;
 		this.mobileNumber = mobileNumber;
@@ -56,14 +57,17 @@ public class User {
 	@Override
 	public boolean equals(Object obj) {
 		User user = (User) obj;
-		return (this.userName.equals(user.getUserName()) && this.email.equals(user.getEmail())
-				&& this.mobileNumber == user.getMobileNumber() && this.account.equals(user.getAccount()));
+		return (this.userName.equals(user.getUserName())
+				&& this.email.equals(user.getEmail())
+				&& this.mobileNumber.intValue() == user.getMobileNumber()
+						.intValue() && this.account.equals(user.getAccount()));
 
 	}
 
 	@Override
 	public int hashCode() {
 		// TODO Auto-generated method stub
-		return Objects.hashCode(this.getMobileNumber());
+		return Objects.hash(this.userName, this.email, this.mobileNumber,
+				this.account);
 	}
 }
