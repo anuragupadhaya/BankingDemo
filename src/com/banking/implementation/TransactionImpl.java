@@ -6,16 +6,19 @@ import com.banking.interfaces.IFileIO;
 import com.banking.interfaces.ITransaction;
 
 public class TransactionImpl implements ITransaction {
+	@Override
 	public boolean accountAuthentication(User user, Transaction trnObj) {
 		boolean authentication = false;
 		IFileIO fi = new FileIO();
 		User userRecord = fi.readTransactionFile(user);
-		if (userRecord.getMobileNumber().intValue() == user.getMobileNumber().intValue()
-				&& userRecord.getAccount().getAuthPin().intValue() == user.getAccount().getAuthPin().intValue()) {
+		if (userRecord.getMobileNumber().intValue() == user.getMobileNumber()
+				.intValue()
+				&& userRecord.getAccount().getAuthPin().intValue() == user
+						.getAccount().getAuthPin().intValue()) {
 			if (trnObj.getTransactionType().toLowerCase().equals("tx")
 					&& trnObj.getTransactionAmount().intValue() > 1000) {
-				if (userRecord.getAccount().getTransactionPin().intValue() != user.getAccount().getTransactionPin()
-						.intValue()) {
+				if (userRecord.getAccount().getTransactionPin().intValue() != user
+						.getAccount().getTransactionPin().intValue()) {
 					return authentication;
 				}
 			}
@@ -23,5 +26,16 @@ public class TransactionImpl implements ITransaction {
 			authentication = true;
 		}
 		return authentication;
+	}
+
+	@Override
+	public boolean profileUpdate(User user, Transaction trnObj) {
+
+		IFileIO fi = new FileIO();
+
+		User userRecord = fi.readTransactionFile(user);
+		userRecord.setEmail(trnObj.getEmail());
+
+		return fi.writeTransactionFile(userRecord);
 	}
 }

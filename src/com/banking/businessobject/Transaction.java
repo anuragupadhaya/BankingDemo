@@ -1,12 +1,16 @@
 package com.banking.businessobject;
 
 public class Transaction {
+	// format of transaction message will be as below
+	// tx|101|102|20000|pass11|pass22|anurag@eanurag.com
+	// mo| | | |pass11|pass22|newemail@gmail.com
 	private String transactionType;
 	private Integer fromAccountNumber;
 	private Integer toAccountNumber;
 	private Integer transactionAmount;
 	private Integer authPin;
 	private Integer transactionPin;
+	private String email;
 
 	public Transaction(String[] messageArray) {
 		this.transactionType = messageArray[0].toLowerCase();
@@ -15,6 +19,7 @@ public class Transaction {
 		this.transactionAmount = Integer.valueOf(messageArray[3]);
 		this.authPin = Integer.valueOf(messageArray[4]);
 		this.transactionPin = Integer.valueOf(messageArray[5]);
+		this.email = messageArray[6].toLowerCase();
 	}
 
 	public String getTransactionType() {
@@ -63,5 +68,20 @@ public class Transaction {
 
 	public void setTransactionPin(Integer transactionPin) {
 		this.transactionPin = transactionPin;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email.toLowerCase();
+	}
+
+	@Override
+	public String toString() {
+		return transactionType + "|" + fromAccountNumber + "|"
+				+ toAccountNumber + "|" + transactionAmount + "|" + authPin
+				+ "|" + transactionPin;
 	}
 }

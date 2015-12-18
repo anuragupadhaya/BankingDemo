@@ -74,11 +74,14 @@ public class FileIO implements IFileIO {
 			e.printStackTrace();
 		}
 
-		String[] objectValue = currentLine.trim().split("|");
-		Account account = new Account(Integer.valueOf(objectValue[3]), Integer.valueOf(objectValue[4]),
+		String[] objectValue = currentLine.trim().split("\\|");
+		Account account = new Account(Integer.valueOf(objectValue[3]),
+				Integer.valueOf(objectValue[4]),
 				Integer.valueOf(objectValue[5]));
-		User newUser = new User(objectValue[0], objectValue[1], new BigInteger(objectValue[2]), account);
-		System.out.println("User found in the transaction file: " + newUser.toString());
+		User newUser = new User(objectValue[0], objectValue[1], new BigInteger(
+				objectValue[2]), account);
+		System.out.println("User found in the transaction file: "
+				+ newUser.toString());
 		return newUser;
 
 		// to add exception code here if the record is not found
@@ -96,11 +99,26 @@ public class FileIO implements IFileIO {
 		// Eclipse needs to be *Run as Admin* to have the write access to write
 		// to the file
 		// Problem with Windows 7+ as of now. Still need to check on Mac.
+
+		BufferedReader br = null;
 		BufferedWriter bw = null;
+		String currentLine = "";
 
 		try {
-			bw = new BufferedWriter(new FileWriter(TRANSACTION_FILE, true));
-			bw.write("\n" + user.toString());
+			br = new BufferedReader(new FileReader(TRANSACTION_FILE));
+			bw = new BufferedWriter(new FileWriter(TRANSACTION_FILE + ".tmp",
+					true));
+
+			while ((currentLine = br.readLine()) != null) {
+				if (currentLine.contains(user.getMobileNumber().toString()
+						.toLowerCase())) {
+					continue;
+				}
+				bw.write(currentLine);
+				bw.newLine();
+			}
+			bw.write(user.toString());
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -108,12 +126,20 @@ public class FileIO implements IFileIO {
 		try {
 			// check if flush is important
 			bw.flush();
+			br.close();
 			bw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		File oldFile = new File(TRANSACTION_FILE);
+		File newFile = new File(TRANSACTION_FILE + ".tmp");
+		if (oldFile.delete()) {
+			newFile.renameTo(oldFile);
+		}
+
 		// again check for error handling here
-		System.out.println("Record written to the transaction file: " + user.toString());
+		System.out.println("Record written to the transaction file: "
+				+ user.toString());
 		return true;
 	}
 }

@@ -9,7 +9,8 @@ public class User {
 	private BigInteger mobileNumber;
 	private Account account;
 
-	public User(String userName, String email, BigInteger mobileNumber, Account account) {
+	public User(String userName, String email, BigInteger mobileNumber,
+			Account account) {
 		this.userName = userName.toLowerCase();
 		this.email = email.toLowerCase();
 		this.mobileNumber = mobileNumber;
@@ -50,21 +51,23 @@ public class User {
 
 	@Override
 	public String toString() {
-		return userName + "," + email + "," + mobileNumber + "," + account;
+		return userName + "|" + email + "|" + mobileNumber + "|" + account;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		User user = (User) obj;
-		return (this.userName.equals(user.getUserName()) && this.email.equals(user.getEmail())
-				&& this.mobileNumber.intValue() == user.getMobileNumber().intValue()
-				&& this.account.equals(user.getAccount()));
+		return (this.userName.equals(user.getUserName())
+				&& this.email.equals(user.getEmail())
+				&& this.mobileNumber.intValue() == user.getMobileNumber()
+						.intValue() && this.account.equals(user.getAccount()));
 
 	}
 
 	@Override
 	public int hashCode() {
 		// TODO Auto-generated method stub
-		return Objects.hash(this.userName, this.email, this.mobileNumber, this.account);
+		return Objects.hash(this.userName, this.email, this.mobileNumber,
+				this.account);
 	}
 }

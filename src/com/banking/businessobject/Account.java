@@ -40,7 +40,7 @@ public class Account {
 
 	@Override
 	public String toString() {
-		return accountNumber + "," + authPin + "," + transactionPin;
+		return accountNumber + "|" + authPin + "|" + transactionPin;
 	}
 
 	@Override
