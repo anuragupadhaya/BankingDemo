@@ -21,8 +21,8 @@ public class TestFileIO {
 	@Before
 	public void setUp() throws Exception {
 		account = new Account(7, 2708, 2708);
-		user = new User("anurag", "anurag@eanurag.com", new BigInteger(
-				String.valueOf("8105720566")), account);
+		user = new User("kunal", "kunal@ikunal.in", new BigInteger(
+				String.valueOf("99301027123")), account);
 		fio = new FileIO();
 	}
 

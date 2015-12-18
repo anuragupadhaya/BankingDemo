@@ -19,17 +19,15 @@ public class TestSmsGatewayImpl {
 	Account account;
 	User user;
 	Transaction trnObj;
-	ISmsGateway sms;
+	SmsGatewayImpl sms;
 	String trnMessage;
-	String[] messageArray;
 
 	@Before
 	public void setUp() throws Exception {
-		account = new Account(7, 2708, 2708);
-		user = new User("anurag", "anurag@eanurag.com", new BigInteger(
-				String.valueOf("8105720566")), account);
-		trnMessage = "tx|101|102|20000|2708|2708|anurag@gmail.com";
-		messageArray = trnMessage.trim().split("\\|");
+		account = new Account(8, 3688, 9876);
+		user = new User("kunal", "kunal@ikunal.in", new BigInteger(String.valueOf("9931027123")), account);
+		trnMessage = "tx|101|102|1100|3688|9876|kunal@ikunal.in";
+		String[] messageArray = trnMessage.trim().split("\\|");
 		trnObj = new Transaction(messageArray);
 		sms = new SmsGatewayImpl();
 	}
@@ -40,27 +38,41 @@ public class TestSmsGatewayImpl {
 
 	@Test
 	public void testReceiveNextMessage() {
-		sms.receiveNextMessage(trnMessage);
+		sms.receiveNextMessage(trnMessage, user);
+		assertEquals("9931027123:PIN authenticated", sms.getAuthPinNotification());
+		assertEquals("9931027123:TPIN authenticated", sms.getTransPinNotification());
+
+		// check for profile modification
+		trnMessage = "mo|101|000|000|3688|9876|kunal@ikunal.in";
+		String[] messageArray = trnMessage.trim().split("\\|");
+		trnObj = new Transaction(messageArray);
+
+		sms.receiveNextMessage(trnMessage, user);
+
 	}
 
 	@Test
 	public void testNotifyPinAuthenticationResult() {
-		fail("Not yet implemented");
+		String result = sms.notifyPinAuthenticationResult(user, true);
+		assertEquals("9931027123:PIN authenticated", result);
 	}
 
 	@Test
 	public void testNotifyTransPinAuthenticationResult() {
-		fail("Not yet implemented");
+		String result = sms.notifyTransPinAuthenticationResult(user, true);
+		assertEquals("9931027123:TPIN authenticated", result);
 	}
 
 	@Test
 	public void testNotifyTransactionResult() {
-		fail("Not yet implemented");
+		String result = sms.notifyTransactionResult(user, trnObj, true);
+		assertEquals("9931027123:Txn completed for " + trnObj.toString(), result);
 	}
 
 	@Test
 	public void testNotifyProfileUpdateResult() {
-		fail("Not yet implemented");
+		String result = sms.notifyProfileUpdateResult(user, trnObj, true);
+		assertEquals("9931027123:Update completed for " + trnObj.toString(), result);
 	}
 
 }

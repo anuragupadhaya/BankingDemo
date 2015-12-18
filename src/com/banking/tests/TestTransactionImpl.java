@@ -22,10 +22,10 @@ public class TestTransactionImpl {
 
 	@Before
 	public void setUp() throws Exception {
-		account = new Account(7, 2708, 2708);
-		user = new User("anurag", "anurag@eanurag.com", new BigInteger(
-				String.valueOf("8105720566")), account);
-		String trnMessage = "tx|101|102|20000|2708|2708|anurag@gmail.com";
+		account = new Account(8, 3688, 9876);
+		user = new User("kunal", "kunal@ikunal.in", new BigInteger(
+				String.valueOf("9931027123")), account);
+		String trnMessage = "tx|101|102|20000|3688|9876|kunal@gmail.com";
 		String[] messageArray = trnMessage.trim().split("\\|");
 		trnObj = new Transaction(messageArray);
 		trn = new TransactionImpl();

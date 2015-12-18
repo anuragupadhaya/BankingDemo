@@ -4,7 +4,7 @@ import com.banking.businessobject.Transaction;
 import com.banking.businessobject.User;
 
 public interface ISmsGateway {
-	public void receiveNextMessage(String message);
+	public void receiveNextMessage(String message, User user);
 
 	public String notifyPinAuthenticationResult(User user, boolean authentication);
 

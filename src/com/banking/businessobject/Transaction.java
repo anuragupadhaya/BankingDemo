@@ -80,8 +80,7 @@ public class Transaction {
 
 	@Override
 	public String toString() {
-		return transactionType + "|" + fromAccountNumber + "|"
-				+ toAccountNumber + "|" + transactionAmount + "|" + authPin
-				+ "|" + transactionPin;
+		return transactionType + "|" + fromAccountNumber + "|" + toAccountNumber + "|" + transactionAmount + "|"
+				+ authPin + "|" + transactionPin + "|" + email;
 	}
 }

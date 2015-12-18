@@ -14,11 +14,11 @@ import com.banking.interfaces.IFileIO;
 
 public class FileIO implements IFileIO {
 	// Test path for Windows machine
-	private final static String TRANSACTION_FILE = "c:\\bank_transaction.txt";
+//	private final static String TRANSACTION_FILE = "c:\\bank_transaction.txt";
 
 	// Test path for MacBook
-	// private final static String TRANSACTION_FILE =
-	// "/Users/anurag/bank_transaction.txt";
+	 private final static String TRANSACTION_FILE =
+	 "/Users/anurag/bank_transaction.txt";
 
 	/*
 	 * (non-Javadoc)
